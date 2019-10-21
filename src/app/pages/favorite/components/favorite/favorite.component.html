@@ -1,0 +1,14 @@
+
+<div class="container mt-5"
+  *ngIf="favoritesList$ | async as favoritesList">
+    <div class="row align-self-center">
+        <app-location-card
+        *ngFor="let city of favoritesList"
+        [favCity]="city"
+        class="col-md"
+        (click)="citySelected(city)"
+        [routerLink]="['/']"
+        >
+      </app-location-card>
+  </div>
+</div>

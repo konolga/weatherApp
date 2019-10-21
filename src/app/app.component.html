@@ -1,0 +1,5 @@
+<div class="app-wrapper" [ngClass]="{ 'dark-theme' : theme$ | async}">
+  <app-header-nav></app-header-nav>
+  <router-outlet></router-outlet>
+  <toaster-container></toaster-container>
+</div>

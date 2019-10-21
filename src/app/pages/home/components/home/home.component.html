@@ -1,0 +1,26 @@
+
+<app-search (cityKey)="onKeyChange($event)"></app-search>
+
+<div class="container">
+    <div class="d-flex justify-content-left">
+        <app-weather-card
+        *ngIf="weather$ | async as weather"
+        [weather]="weather">
+        </app-weather-card>
+        <button mat-fab [disabled] = "!isFavorite()" aria-label="heartIcon" class ="animated pulse infinite">
+            <mat-icon (click)="onAddToFavorites()" >favorite</mat-icon>
+          </button>
+    </div>
+
+
+      <div class="row d-flex justify-content-around"
+      *ngIf="weather$ | async as weather">
+          <app-forecast-card
+          class="col-md"
+          *ngFor="let day of weather?.forecast?.DailyForecasts"
+          [weather]="day">
+          </app-forecast-card>
+    </div>
+</div>
+
+

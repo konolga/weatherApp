@@ -1,0 +1,12 @@
+.form-inline{
+  display:block;
+  text-align: center;
+  font-family: FontAwesome;
+
+ }
+
+ .search {
+  width: 300px;
+  border-radius: 4px;
+ }
+
