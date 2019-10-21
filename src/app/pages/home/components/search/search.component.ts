@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.cities = [];
-    this.getCities('Tel Aviv');
+    this.getCities();
 
   }
 
@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit {
    return this.locationService.setCurrentCity(city.item);
   }
 
-  getCities(text$: string): void {
+  getCities(): void {
     this.locationService.searchAutocomplete(this.text$)
         .subscribe((cities: City []) => {
         this.cities = cities;

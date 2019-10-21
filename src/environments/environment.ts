@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   accuweatherApikey: 'KVKzDA4z1yrOOcKPHwks3JbgNBZDEgkf',
-  //KVKzDA4z1yrOOcKPHwks3JbgNBZDEgkf
 
   geopositionUrl: 'assets/geopositionUrl.json',
   authocompleteUrl: 'assets/authocompleteUrl.json',
