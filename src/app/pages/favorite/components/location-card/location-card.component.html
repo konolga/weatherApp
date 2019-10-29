@@ -1,7 +1,8 @@
-<div class="card bg-light mb-3" style="max-width: 18rem;">
-  <div class="card-header">Favorite Weather card</div>
+<div class="card text-white bg-primary mb-3"
+*ngIf="favCity">
+  <div class="card-header"></div>
   <div class="card-body">
-    <h5 class="card-title">Sunny</h5>
-    <p class="card-text">London 25 C</p>
+  <h4 class="card-title">{{favCity.LocalizedName}}</h4>
   </div>
 </div>
+

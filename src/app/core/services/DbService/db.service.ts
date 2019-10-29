@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
 
 @Injectable({
   providedIn: 'root'

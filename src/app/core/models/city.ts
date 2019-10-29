@@ -3,5 +3,5 @@ export interface City {
   LocalizedName: string;
   Country: {
     LocalizedName: string;
-  }
+  };
 }

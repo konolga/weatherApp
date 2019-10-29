@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LocationService } from 'src/app/core/services/locationService/location.service';
 import { map } from 'rxjs/operators';
-import { MatButtonModule, MatIconModule } from '@angular/material';
 import { DbService } from 'src/app/core/services/DbService/db.service';
-import { City } from 'src/app/core/models/city';
+
 
 @Component({
   selector: 'app-home',
@@ -17,8 +16,7 @@ export class HomeComponent implements OnInit {
   cityKey: Observable<any>;
 
   constructor(
-    private locationService: LocationService,
-    private dbService: DbService) {
+    private locationService: LocationService) {
   }
 
   ngOnInit() {

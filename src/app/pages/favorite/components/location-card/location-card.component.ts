@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WeatherService } from 'src/app/core/services/weatherService/weather.service';
 
 @Component({
   selector: 'app-location-card',

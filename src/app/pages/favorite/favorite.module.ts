@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { FavoriteRoutingModule } from './favorite-routing.module';
 import { FavoriteComponent } from './components/favorite/favorite.component';
-import { LocationCardComponent } from './location-card/location-card.component';
+import { LocationCardComponent } from './components/location-card/location-card.component';
+
 
 
 @NgModule({

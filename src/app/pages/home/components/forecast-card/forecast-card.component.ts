@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { SettingsService } from 'src/app/core/services/SettingsService/settings.service';
+
 
 @Component({
   selector: 'app-forecast-card',

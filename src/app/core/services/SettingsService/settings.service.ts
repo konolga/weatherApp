@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from } from 'rxjs';
+import { BehaviorSubject, from, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,6 @@ metric = true;
 themeDark: BehaviorSubject<any>;
 tempUnit: BehaviorSubject<any>;
 
-
-themes = {
-  dark: '../node_modules/bootswatch/dist/Superhero/bootstrap.min.css',
-  light: '../node_modules/bootswatch/dist/Spacelab/bootstrap.min.css'
-  };
   constructor(
   ) {
     this.themeDark = new BehaviorSubject<any>(this.dark);

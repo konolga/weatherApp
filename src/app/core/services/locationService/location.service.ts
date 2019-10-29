@@ -22,7 +22,8 @@ export class LocationService {
     private weatherService: WeatherService,
     private http: HttpClient,
     private dbService: DbService) {
-      this.currentLocation = new BehaviorSubject(JSON.parse(localStorage.getItem('currentLocation')));
+      const currentLocation = JSON.parse(this.dbService.getData('currentLocation'));
+      this.currentLocation = new BehaviorSubject(currentLocation);
     }
 
   getDeviceCoordinates(): Promise<any> {
@@ -37,17 +38,17 @@ export class LocationService {
       );
     });
   }
-// switchMap: data from one observable to use in another
+
 
   getDeviceLocation() {
     return from(this.getDeviceCoordinates())
     .pipe(
       switchMap(coordinates => {
         return coordinates && this.searchLocation(coordinates).pipe(map(data => {
-          localStorage.setItem('deviceLocation', JSON.stringify(data));
+          this.dbService.setData('deviceLocation', JSON.stringify(data));
           const currentLocation = localStorage.getItem('currentLocation');
           if (!currentLocation && data) {
-            localStorage.setItem('currentLocation', JSON.stringify(data));
+            this.dbService.setData('currentLocation', JSON.stringify(data));
             this.currentLocation.next(data);
           }
           return data;
@@ -105,7 +106,7 @@ export class LocationService {
         console.log('Toastr error: ', err.message);
         return of(this.toastr.error(`Cannot complete search from ${err.url}`), {timeOut: 3000});
       })
-      ));
+    ));
   }
 
 
@@ -126,48 +127,30 @@ export class LocationService {
     );
   }
 
-  deleteLocation(location) {
-    return this.dbService.getData('currentLocation').pipe(
-      map(data => {
-        const locations = data.split(data.indexOf(location), 1);
-        return this.dbService.setData('currentLocation', locations);
-      })
-    );
-  }
-
-  getLocations() {
-    return this.dbService.getData('currentLocation');
-  }
-
-  setLocation(location) {
-    this.currentLocation.next(location);
-    return of(true);
-  }
 
   getCityData() {
     return this.currentLocation;
   }
 
   getFavorites(): Observable<any[]> {
-    const fav = JSON.parse(localStorage.getItem('favorites'));
-
+    const fav = JSON.parse(this.dbService.getData('favorites'));
     return fav && of(Object.keys(fav).map(i => fav[i]));
   }
 
   toggleFavorite(item) {
 
-    const fav = JSON.parse(localStorage.getItem('favorites')) || {};
+    const fav = JSON.parse(this.dbService.getData('favorites')) || {};
     if (fav[item.Key]) {
       delete fav[item.Key];
     } else {
       fav[item.Key] = item;
     }
-    localStorage.setItem('favorites', JSON.stringify(fav));
+    this.dbService.setData('favorites', JSON.stringify(fav));
   }
 
   setCurrentCity(location) {
     this.currentLocation.next(location);
-    localStorage.setItem('currentLocation', JSON.stringify(location));
+    this.dbService.setData('currentLocation', JSON.stringify(location));
   }
 
 

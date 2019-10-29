@@ -26,5 +26,3 @@ export class HeaderNavComponent implements OnInit {
 
 }
 
-// in this headerNav component we will store
-//  our header navigation + settings switchers
