@@ -16,7 +16,8 @@ export class HomeComponent implements OnInit {
   cityKey: Observable<any>;
 
   constructor(
-    private locationService: LocationService) {
+    private locationService: LocationService,
+    private dbService: DbService) {
   }
 
   ngOnInit() {

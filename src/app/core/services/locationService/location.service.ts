@@ -22,8 +22,8 @@ export class LocationService {
     private weatherService: WeatherService,
     private http: HttpClient,
     private dbService: DbService) {
-      const currentLocation = JSON.parse(this.dbService.getData('currentLocation'));
-      this.currentLocation = new BehaviorSubject(currentLocation);
+      const initLocation = this.dbService.getData('currentLocation');
+      this.currentLocation = new BehaviorSubject(initLocation);
     }
 
   getDeviceCoordinates(): Promise<any> {
@@ -45,10 +45,10 @@ export class LocationService {
     .pipe(
       switchMap(coordinates => {
         return coordinates && this.searchLocation(coordinates).pipe(map(data => {
-          this.dbService.setData('deviceLocation', JSON.stringify(data));
+          this.dbService.setData('deviceLocation', data);
           const currentLocation = localStorage.getItem('currentLocation');
           if (!currentLocation && data) {
-            this.dbService.setData('currentLocation', JSON.stringify(data));
+            this.dbService.setData('currentLocation', data);
             this.currentLocation.next(data);
           }
           return data;
@@ -111,46 +111,33 @@ export class LocationService {
 
 
   getWeatherData(): Observable<any> {
-      return this.currentLocation.pipe(switchMap(location => {
+    console.log('this.currentLocation', this.currentLocation)
+    return this.currentLocation.pipe(switchMap(location => {
           return location
                  ? this.weatherService.getWeatherData(location.Key)
                  : of({});
       }));
   }
 
-
-  saveLocation(location) {
-    return this.dbService.getData('currentLocation').pipe(
-      map(data => {
-        return this.dbService.setData('currentLocation', data.push(location));
-      })
-    );
-  }
-
-
-  getCityData() {
-    return this.currentLocation;
-  }
-
   getFavorites(): Observable<any[]> {
-    const fav = JSON.parse(this.dbService.getData('favorites'));
+    const fav = this.dbService.getData('favorites');
     return fav && of(Object.keys(fav).map(i => fav[i]));
   }
 
   toggleFavorite(item) {
 
-    const fav = JSON.parse(this.dbService.getData('favorites')) || {};
+    const fav = this.dbService.getData('favorites') || {};
     if (fav[item.Key]) {
       delete fav[item.Key];
     } else {
       fav[item.Key] = item;
     }
-    this.dbService.setData('favorites', JSON.stringify(fav));
+    this.dbService.setData('favorites', fav);
   }
 
   setCurrentCity(location) {
     this.currentLocation.next(location);
-    this.dbService.setData('currentLocation', JSON.stringify(location));
+    this.dbService.setData('currentLocation', location);
   }
 
 

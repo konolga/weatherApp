@@ -16,4 +16,3 @@ import { FavoriteModule } from './favorite/favorite.module';
 })
 export class PagesModule { }
 
-// ng g module pages
